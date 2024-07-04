@@ -10,27 +10,24 @@ function abort($message, $code = 404) {
     exit();
 }
 
-function dataGet($arr, $key) {
-    if (!is_array($arr) || empty($key)) {
-        return null;
-    }
-
-    $keysArr = explode('.', $key);
-    $current = $arr;
-
-    foreach ($keysArr as $k) {
-        if (!is_array($current) || !array_key_exists($k, $current)) {
+function dataGet($array, $key)
+{
+    $keys = explode('.', $key);
+    foreach ($keys as $k) {
+        if (isset($array[$k])) {
+            $array = $array[$k];
+        } else {
             return null;
         }
-        $current = $current[$k];
     }
-
-    return $current;
+    return $array;
 }
 
-function view($to) {
+
+function view($to, $data = []) {
     $path = BASE_PATH . "templates/views/{$to}.php";
     if (file_exists($path)) {
+        extract($data);
             require $path;
         } else {
             echo "View not found: " . $path;

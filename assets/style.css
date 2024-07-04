@@ -1,0 +1,140 @@
+/* Header style */
+.headerContainer {
+	color: white;
+	top: 0;
+	left: 0; 
+	width: auto;
+	z-index: 1000; 
+	padding: 20px 30px;
+}
+
+.header {
+	display: flex;
+}
+
+.headerLink {
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.headerImg img {
+	height: 35px;
+	width: auto;
+}
+
+.headerLink a {
+	padding: 40px;
+	color: white;
+	text-decoration: none;
+}
+
+.headerLink a:focus {
+	color: blue;
+}
+
+@media only screen and (max-width: 600px) {
+    .mobileLink {
+        position: fixed;
+        top: 10px;  
+        right: 10px;
+        z-index: 1000;
+    }
+
+    .mobileLink div {
+        width: 35px;
+        height: 5px;
+        background-color: white;
+        margin: 6px 0;
+        display: block;
+        transition: 0.4s;
+    }
+
+    .m1.active {
+        transform: translateY(11px) rotate(45deg);
+    }
+
+    .m2.active {
+        opacity: 0;
+    }
+
+    .m3.active {
+        transform: translateY(-11px) rotate(-45deg);
+    }
+
+    .offScreenMenu {
+        display: grid;
+        position: fixed;
+        right: -600px;
+        background-color: rgb(35, 37, 49);
+        height: 60vh;
+        width: 100%;
+        font-size: 25px;
+        text-align: center;
+        top: 0;
+        transition: right 0.4s ease-in-out;
+    }
+
+    .offScreenMenu a {
+        margin-top: 30px;
+        color: white;
+        text-decoration: none;
+    }
+
+    .offScreenMenu.active {
+        right: 0;
+    }
+}
+
+@media only screen and (min-width: 601px) {
+    .mobileLink {
+        display: none;
+    }
+
+    .offScreenMenu {
+        display: none;
+    }
+}
+
+
+
+@media only screen and (max-width: 601px) {
+	.headerLink a {
+		display: none;
+	}
+}
+
+/* Home style */
+body {
+    background-image: url("photos/bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.homeContainer {
+	padding-top: 50px;
+}
+
+.homeContainer {
+	justify-content: center;
+	text-align: center;
+}
+
+.homeContainer h1 {
+	margin-top: 280px;
+	color: white;
+}
+
+.homeContainer button {
+  height: 50px;
+  width: 130px;
+  font-size: 17px;
+  background-color: #2A67FF;
+  border: none;
+  color: #ffffff;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.homeContainer button:hover {
+  background-color: #4182FA;
+}

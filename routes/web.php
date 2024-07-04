@@ -1,6 +1,9 @@
 <?php
 
-$router->get("/", "controller\HomeController@home");
-$router->get("/about", "controller\HomeController@about");
-// $router->get("/about", "src\Controllers\HomeController@about");
-// $router->get("/contact", "src\Controllers\HomeController@contact");
+// Landing page
+$router->get("/", "App\\controller\\HomeController@home");
+$router->get("/about", "App\\controller\\HomeController@about");
+$router->get("/contact", "App\\controller\\HomeController@contact");
+
+// Auth 
+$router->get("/register", "App\\controller\\UserAuthController@showRegister");

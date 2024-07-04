@@ -54,24 +54,29 @@ class Router
         return [$controller, $function];
     }
 
-    public function route(string $method, string $uri): void 
-    {
-        $basePath = str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']);
-        $uri = str_replace($basePath, '', $uri);
-        $uri = rtrim($uri, '/') ?: '/';
+ public function route(string $method, string $uri): void 
+{
+    // Normalize the base path and URI
+    $basePath = str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']);
+    $uri = str_replace($basePath, '', $uri);
+    $uri = rtrim($uri, '/') ?: '/';
 
-        $result = dataGet($this->routes, $method . '.' . $uri);
+    // Retrieve the route configuration
+    $result = dataGet($this->routes, $method . '.' . $uri);
 
-        if (!$result) {
+    if (!$result) {
         abort("Route not found", 404);
     }
 
+    // Extract controller and method
     $controller = $result['controller'];
     $function = $result['method'];
 
+    // Check if the controller class exists
     if (class_exists($controller)) {
         $controllerInstance = new $controller();
 
+        // Check if the method exists in the controller
         if (method_exists($controllerInstance, $function)) {
             $controllerInstance->$function();
         } else {
