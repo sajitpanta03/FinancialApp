@@ -1,0 +1,15 @@
+{
+    "name": "sajitpanta/financial-app",
+    "autoload": {
+        "psr-4": {
+                "config\\": "config"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sajit Panta",
+            "email": "pantasajit31@gmail.com"
+        }
+    ],
+    "require": {}
+}

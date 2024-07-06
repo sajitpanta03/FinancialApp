@@ -8,7 +8,7 @@ const BASE_PATH = __DIR__ . '/';
 
 require 'core/helpers.php';
 require 'core/Router.php';
-
+require_once 'vendor/autoload.php';
 
 spl_autoload_register(function ($class) {
     $class = str_replace("\\", DIRECTORY_SEPARATOR, $class);

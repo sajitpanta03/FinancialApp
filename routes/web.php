@@ -7,3 +7,6 @@ $router->get("/contact", "App\\controller\\HomeController@contact");
 
 // Auth 
 $router->get("/register", "App\\controller\\UserAuthController@showRegister");
+$router->get("/api/registerUser", "App\\controller\\UserAuthController@register");
+
+

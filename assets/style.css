@@ -138,3 +138,31 @@ body {
 .homeContainer button:hover {
   background-color: #4182FA;
 }
+
+/* Footer style */
+.footerContainer {
+    display: flex;
+    color: white;
+    background-color: #191919;
+    margin-top: 840px;
+    font-size: 20px;
+    justify-content: space-between;
+}
+
+.firstBlock {
+    padding: 10px 20px;
+}
+
+.secondBlock {
+    padding: 10px 20px;
+}
+
+.thirdBlock {
+    padding: 20px 20px;
+}
+
+.fourthBlock {
+    padding: 20px 40px;
+}
+
+

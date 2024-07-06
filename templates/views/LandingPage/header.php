@@ -18,7 +18,7 @@
                 <a href="">Business</a>
                 <a href="">Business</a>
                 <a href="">Login</a>
-                <a href="">Register</a>
+                <a href="register">Register</a>
             </div>
         </div>
         <div id="mobileLink" class="mobileLink">
