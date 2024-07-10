@@ -27,7 +27,6 @@ require BASE_PATH . "routes/web.php";
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
 
-// echo "Routing {$method} request for {$uri}<br>\n";
 
 $router->route($method, $uri);
 

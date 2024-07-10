@@ -8,27 +8,26 @@
 </head>
 <body>
   <div class="wrapper">
-  <form method="POST" action="FinancialApp/registerUser">
-      <h2>Register</h2>
+    <form method="POST" action="FinancialApp/loginUser">
+      <h2>Login</h2>
         <div class="input-field">
-        <input type="text" name="name" required>
-        <label>Enter your name</label>
-      </div>
-	  <div class="input-field">
-        <input type="email" name="email" required>
+        <input type="text" name="email" required>
         <label>Enter your email</label>
       </div>
       <div class="input-field">
         <input type="password" name="password" required>
         <label>Enter your password</label>
       </div>
-	  <div class="input-field">
-        <input type="password" name="c_password" required>
-        <label>Enter your confirm password</label>
+      <div class="forget">
+        <label for="remember">
+          <input type="checkbox" id="remember">
+          <p>Remember me</p>
+        </label>
+        <a href="#">Forgot password?</a>
       </div>
       <button type="submit">Submit</button>
       <div class="register">
-        <p>Have an account? &nbsp<a href="login">Login</a></p>
+        <p>Don't have an account? <a href="register">Register</a></p>
       </div>
     </form>
   </div>

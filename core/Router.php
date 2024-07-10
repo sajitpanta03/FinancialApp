@@ -62,10 +62,12 @@ public function route(string $method, string $uri): void
 
     foreach ($this->routes[$method] as $route => $result) {
         $pattern = preg_replace('/\{[^}]+\}/', '([^/]+)', $route);
+
         if (preg_match("#^$pattern$#", $uri, $matches)) {
             array_shift($matches);
             $controller = $result['controller'];
             $function = $result['method'];
+
 
             if (class_exists($controller)) {
                 $controllerInstance = new $controller();
@@ -84,6 +86,7 @@ public function route(string $method, string $uri): void
 
     abort("Route not found", 404);
 }
+
 
 
 }

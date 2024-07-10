@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
-    <link rel="stylesheet" type="text/css" href="assets/style.css" />
+    <link rel="stylesheet" type="text/css" href="assets/header.css" />
 </head>
 <body>
     <div class="headerContainer">
@@ -13,11 +13,11 @@
                 <img src="assets/photos/logo.png" alt="logo">
             </div>
             <div class="headerLink">
-                <a href="">Business</a>
-                <a href="">Business</a>
-                <a href="">Business</a>
-                <a href="">Business</a>
-                <a href="">Login</a>
+                <a href="">Home</a>
+                <a href="">Products</a>
+                <a href="">About Us</a>
+                <a href="">Contact Us</a>
+                <a href="login">Login</a>
                 <a href="register">Register</a>
             </div>
         </div>
@@ -35,6 +35,5 @@
             <a href="">Register</a>
         </div>
     </div>
-    <script type="text/javascript" src="assets/script.js"></script>
 </body>
 </html>
