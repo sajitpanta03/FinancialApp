@@ -15,7 +15,7 @@
             <div class="headerLink">
                 <a href="">Home</a>
                 <a href="">Products</a>
-                <a href="">About Us</a>
+                <a href="about">About Us</a>
                 <a href="">Contact Us</a>
                 <a href="login">Login</a>
                 <a href="register">Register</a>

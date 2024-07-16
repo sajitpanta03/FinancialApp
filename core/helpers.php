@@ -1,10 +1,12 @@
 <?php
 
-function basePath($path) {
+function basePath($path)
+{
     return BASE_PATH . $path;
 }
 
-function abort($message, $code = 404) {
+function abort($message, $code = 404)
+{
     http_response_code($code);
     echo $message;
     exit();
@@ -24,14 +26,19 @@ function dataGet($array, $key)
 }
 
 
-function view($to, $data = []) {
+function view($to, $data = [], $message = null)
+{
     $path = BASE_PATH . "templates/views/{$to}.php";
+
+    if ($message !== null) {
+        $data['message'] = $message;
+    }
+
     if (file_exists($path)) {
         extract($data);
-            require $path;
-        } else {
-            echo "View not found: " . $path;
-        }
-        return $path;
+        require $path;
+    } else {
+        echo "View not found: " . $path;
+    }
+    return $path;
 }
-

@@ -56,6 +56,9 @@ class UserAuthController {
 
   public function login()
   {
+    session_start();
+    $_SESSION['user_id'] = $user_id;
+    
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $email = $_POST['email'];
       $password = $_POST['password'];
@@ -90,7 +93,7 @@ class UserAuthController {
     session_start();
     $_SESSION = [];
     session_destroy();
-    header("Location: /login");
+    header("Location: FinancialApp");
     exit;
   }
 }

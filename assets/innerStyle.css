@@ -60,7 +60,7 @@ h1 {
     max-width: 100%;
     white-space: nowrap;
     background-color: white;
-    height: 776px;
+    height: 150px;
 }
 
 .fl-table .edit:hover {
@@ -74,7 +74,7 @@ h1 {
 .fl-table td,
 .fl-table th {
     text-align: center;
-    padding: 8px;
+    /* padding: 8px; */
 }
 
 .fl-table td {
@@ -176,4 +176,13 @@ h1 {
         display: block;
         text-align: center;
     }
+}
+
+.deleteButton form button {
+    background-color: red;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    padding: 3px 8px;
+    cursor: pointer;
 }
