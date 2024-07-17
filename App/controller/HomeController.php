@@ -16,6 +16,6 @@ class HomeController
 
     public function contact() 
     {
-        echo "Welcome to contact page";
+        return view('/LandingPage/contact');
     }
 }
