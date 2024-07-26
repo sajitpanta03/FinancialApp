@@ -24,6 +24,16 @@ $router->post('/goalStore', "App\\controller\\GoalController@storeGoal");
 $router->get('/EditGoal/{id}', "App\\controller\\GoalController@showEdit");
 $router->post('/goalEdit', "App\\controller\\GoalController@editGoal");
 $router->post('/deleteGoal', "App\\controller\\GoalController@deleteGoal");
+$router->post('/searchGoal', "App\\controller\\GoalController@searchGoals");
+
+
+// Income dashboard
+$router->get('/income', "App\\controller\\IncomeController@showIncomes");
+$router->get('/addIncome', "App\\controller\\IncomeController@showAdd");
+$router->post('/incomeStore', "App\\controller\\IncomeController@storeIncome");
+$router->get('/EditIncome/{id}', "App\\controller\\IncomeController@showEdit");
+$router->post('/incomeEdit', "App\\controller\\IncomeController@editIncome");
+$router->post('/deleteIncome', "App\\controller\\IncomeController@deleteIncome");
 
 
 

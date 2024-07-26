@@ -23,33 +23,27 @@
         <h1>Add Goal</h1>
     </div>
 
-    <form id="goalForm" method="POST" action="goalStore">
+    <form id="goalForm" method="POST" action="incomeStore">
         <fieldset>
-            <legend>Goal Information</legend>
+            <legend>Income Information</legend>
 
-            <label for="name">Goal Name:</label>
+            <label for="name">Income Name:</label>
             <input type="text" id="name" name="name" required>
 
-            <label for="target_amount">Target Amount:</label>
-            <input type="number" id="target_amount" name="target_amount" required>
+            <label for="amount">Income Amount:</label>
+            <input type="number" id="amount" name="amount" required>
 
-            <label for="target_date">Target Date:</label>
-            <input type="date" id="target_date" name="target_date" required>
-
-            <label for="risk_tolerance">Risk Tolerance:</label>
+            <label for="type">Income Type:</label>
             <div class="selectRisk">
-                <select id="risk_tolerance" name="risk_tolerance" required>
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
+                <select id="risk_tolerance" name="type" required>
+                    <option value="bonus">Bonous</option>
+                    <option value="salary">Salary</option>
+                    <option value="interest">Interest</option>
                 </select>
             </div>
         </fieldset>
 
-        <input type="hidden" name="user_id" value="<?php 
-        session_start();
-        echo $_SESSION['user_id'];
-        ?>">
+        <input type="hidden" name="user_id" value="2">
         <input type="submit" value="Submit">
     </form>
 

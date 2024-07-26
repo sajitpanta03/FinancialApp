@@ -16,8 +16,7 @@ class Goals
 
     public function getAllGoals(): array
     {
-        session_start();
-        $user_id = $_SESSION['user_id'] ?? null;
+        $user_id = $this->sessionStart();
 
         if (!$user_id) {
             return [];
@@ -42,8 +41,7 @@ class Goals
 
     public function storeGoal($data)
     {
-        session_start();
-        $user_id = $_SESSION['user_id'] ?? null;
+        $user_id = $this->sessionStart();
 
         $sql = "INSERT INTO goals (name, target_amount, target_date, risk_tolerance, user_id) VALUES (?, ?, ?, ?, ?)";
 
@@ -70,8 +68,7 @@ class Goals
 
     public function getGoalById($id)
     {
-        session_start();
-        $user_id = $_SESSION['user_id'] ?? null;
+        $user_id = $this->sessionStart();
 
         $stmt = $this->conn->prepare("SELECT * FROM $this->table_name WHERE id = ? AND user_id = ?");
 
@@ -104,28 +101,28 @@ class Goals
             session_start();
         }
 
-        $user_id = $_SESSION['user_id'] ?? null;
+        $user_id = $this->sessionStart();
 
         if ($user_id === null) {
             return [
                 'success' => false,
-                'message' => 'User not logged in'
+                'message' => 'User not logged in',
             ];
         }
 
         $stmt = $this->conn->prepare(
-            "UPDATE $this->table_name SET 
-                name = ?, 
-                target_amount = ?, 
-                target_date = ?, 
-                risk_tolerance = ? 
+            "UPDATE $this->table_name SET
+                name = ?,
+                target_amount = ?,
+                target_date = ?,
+                risk_tolerance = ?
             WHERE id = ?"
         );
 
         if ($stmt === false) {
             return [
                 'success' => false,
-                'message' => 'Failed to prepare statement'
+                'message' => 'Failed to prepare statement',
             ];
         }
 
@@ -143,17 +140,15 @@ class Goals
         if ($executed) {
             return [
                 'success' => true,
-                'message' => 'Goal updated successfully'
+                'message' => 'Goal updated successfully',
             ];
         } else {
             return [
                 'success' => false,
-                'message' => 'Failed to update goal'
+                'message' => 'Failed to update goal',
             ];
         }
     }
-
-
 
     public function deleteGoal($id)
     {
@@ -178,5 +173,42 @@ class Goals
         header("Location: goal");
 
         return true;
+    }
+
+    public function search($data)
+    {
+        $searchTerm = "%$data%";
+        $sql = "SELECT * FROM $this->table_name WHERE name LIKE ?";
+
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt === false) {
+            throw new \Exception("Prepare failed: " . $this->conn->error);
+        }
+
+        $stmt->bind_param("s", $searchTerm);
+        $result = $stmt->execute();
+        if ($result === false) {
+            throw new \Exception("Execute failed: " . $stmt->error);
+        }
+
+        $result = $stmt->get_result();
+        if ($result === false) {
+            throw new \Exception("Get result failed: " . $stmt->error);
+        }
+
+        $goals = [];
+        while ($row = $result->fetch_assoc()) {
+            $goals[] = $row;
+        }
+
+        $stmt->close();
+        return $goals;
+    }
+
+    public function sessionStart()
+    {
+        session_start();
+        $user_id = $_SESSION['user_id'] ?? null;
+        return $user_id;
     }
 }

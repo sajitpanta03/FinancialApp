@@ -186,3 +186,37 @@ h1 {
     padding: 3px 8px;
     cursor: pointer;
 }
+
+/* Search */
+.searchGoal {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.searchButton {
+    width: 40px;
+    height: 36px;
+    border: 1px solid #00B4CC;
+    background: #00B4CC;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+  }
+
+  .searchTerm {
+    width: 180px;
+    border: 3px solid #00B4CC;
+    border-right: none;
+    padding: 5px;
+    height: 35px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
+  }
+  
+  .searchTerm:focus{
+    color: #00B4CC;
+  }

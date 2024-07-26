@@ -38,8 +38,8 @@
                 </tr>
             </thead>
             <tbody id="goalsList">
-            <?php if (!empty($goals)): ?>
-    <?php foreach ($goals as $index => $goal): ?>
+            <?php if (!empty($searchGoals)): ?>
+    <?php foreach ($searchGoals as $index => $goal): ?>
         <tr>
             <td><?php echo $index + 1; ?></td>
             <td><?php echo htmlspecialchars($goal['name'], ENT_QUOTES, 'UTF-8'); ?></td>

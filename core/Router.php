@@ -49,7 +49,7 @@ class Router
 
         $this->routes[$method][$uri] = [
             'controller' => $controller,
-            'method' => $function
+            'method' => $function,
         ];
     }
 
@@ -67,25 +67,25 @@ class Router
         $basePath = str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']);
         $uri = str_replace($basePath, '', $uri);
         $uri = rtrim($uri, '/') ?: '/';
-
+    
         foreach ($this->routes[$method] as $route => $result) {
             $pattern = preg_replace('/\{[^}]+\}/', '([^/]+)', $route);
-
+    
             if (preg_match("#^$pattern$#", $uri, $matches)) {
                 $params = [];
                 preg_match_all('/\{([^}]+)\}/', $route, $paramNames);
                 $paramNames = $paramNames[1];
-
+    
                 foreach ($paramNames as $index => $paramName) {
                     $params[$paramName] = $matches[$index + 1];
                 }
-
+    
                 $controller = $result['controller'];
                 $function = $result['method'];
-
+    
                 if (class_exists($controller)) {
                     $controllerInstance = new $controller();
-
+    
                     if (method_exists($controllerInstance, $function)) {
                         // Pass parameters to controller method
                         $controllerInstance->$function(...array_values($params));
@@ -98,7 +98,9 @@ class Router
                 }
             }
         }
-
+    
         abort("Route not found", 404);
-    }
+    }    
+    
+
 }

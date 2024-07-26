@@ -50,6 +50,12 @@ if (!isLoggedIn()) {
                 </a>
             </li>
             <li>
+                <a href="income">
+                    <i class='bx bx-list-ul'></i>
+                    <span class="links_name">Incomes</span>
+                </a>
+            </li>
+            <li>
                 <a href="#">
                     <i class='bx bx-pie-chart-alt-2'></i>
                     <span class="links_name">Analytics</span>

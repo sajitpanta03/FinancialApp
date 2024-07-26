@@ -5,7 +5,6 @@ namespace App\controller;
 require_once __DIR__ . '/../model/Goals.php';
 
 use App\model\Goals;
-
 use Exception;
 
 class GoalController
@@ -37,7 +36,7 @@ class GoalController
     {
         $data = $_POST;
 
-        $requiredFields = ['name', 'target_amount', 'target_date', 'risk_tolerance', 'user_id'];
+        $requiredFields = ['name', 'target_amount', 'target_date', 'risk_tolerance'];
         $missingFields = [];
 
         foreach ($requiredFields as $field) {
@@ -77,7 +76,7 @@ class GoalController
             'name' => $_POST['name'] ?? null,
             'target_amount' => $_POST['target_amount'] ?? null,
             'target_date' => $_POST['target_date'] ?? null,
-            'risk_tolerance' => $_POST['risk_tolerance'] ?? null
+            'risk_tolerance' => $_POST['risk_tolerance'] ?? null,
         ];
 
         $requiredFields = ['name', 'target_amount', 'target_date', 'risk_tolerance'];
@@ -90,29 +89,25 @@ class GoalController
         }
 
         if (!empty($missingFields)) {
-            // Return an error message to the current view
             return [
                 'success' => false,
-                'message' => 'Missing fields: ' . implode(', ', $missingFields)
+                'message' => 'Missing fields: ' . implode(', ', $missingFields),
             ];
         }
 
         $response = $this->goals->editGoal($data);
 
-        // Check the response and redirect or return to view accordingly
         if ($response['success']) {
-            // Redirect to a success page or view
             header('Location: goal');
             exit;
         } else {
-            // Return an error message to the current view
             return [
                 'success' => false,
-                'message' => $response['message']
+                'message' => $response['message'],
             ];
         }
     }
-    
+
     public function deleteGoal()
     {
         if (!isset($_POST['id']) || empty($_POST['id'])) {
@@ -133,4 +128,25 @@ class GoalController
             return view('/UserDashboard/userPageGoal', null, "Sorry, error when deleting the goal: " . $error->getMessage());
         }
     }
+
+    public function searchGoals()
+    {
+        error_log('searchGoals method called');
+
+        $searchGoals = [];
+
+        if (isset($_POST['search'])) {
+            $searchTerm = $_POST['search'];
+            error_log("Search term: " . $searchTerm);
+            $searchGoals = $this->goals->search($searchTerm);
+            error_log(print_r($searchGoals, true));
+        }
+
+        if (!empty($searchGoals)) {
+            return view('/UserDashboard/userPageSearch', ['searchGoals' => $searchGoals]);
+        }
+
+        error_log('No search results found.');
+    }
+
 }
