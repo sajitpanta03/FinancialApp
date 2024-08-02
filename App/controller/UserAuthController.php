@@ -56,37 +56,38 @@ class UserAuthController {
 
   public function login()
   {
-    session_start();
-    $_SESSION['user_id'] = $user_id;
-    
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      $email = $_POST['email'];
-      $password = $_POST['password'];
-
-      try {
-        $user = $this->users->login($email, $password);
-
-        if ($user) {
-          session_start();
-          session_regenerate_id(true);
-
-          $_SESSION['user_id'] = $user['id'];
-          $_SESSION['user_email'] = $user['email'];
-          $_SESSION['logged_in'] = true;
-
-          header("Location: /FinancialApp/dashboard");
-          exit;
-        } else {
-          echo 'Invalid email or password.';
-        }
-      } catch (Exception $e) {
-        echo 'Error: ' . $e->getMessage();
+      session_start();
+  
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+          $email = $_POST['email'];
+          $password = $_POST['password'];
+  
+          try {
+              $user = $this->users->login($email, $password);
+  
+              if ($user) {
+                  session_regenerate_id(true);
+  
+                  $_SESSION['user_id'] = $user['id'];
+                  $_SESSION['user_email'] = $user['email'];
+                  $_SESSION['logged_in'] = true;
+  
+                  header("Location: /FinancialApp/dashboard");
+                  exit;
+              } else {
+                  $_SESSION['message'] = "Invalid Credentials";
+                  header("Location: /Auth/login");
+                  exit;
+              }
+          } catch (Exception $e) {
+              echo 'Error: ' . $e->getMessage();
+          }
+      } else {
+          http_response_code(405);
+          echo 'Method not allowed';
       }
-    } else {
-      http_response_code(405);
-      echo 'Method not allowed';
-    }
   }
+  
 
   public function logout()
   {

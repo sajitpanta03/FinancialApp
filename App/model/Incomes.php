@@ -33,6 +33,29 @@ class Incomes
         return $incomes;
     }
 
+    public function getUserIncomesTotal()
+    {
+        $user_id = $this->sessionStart();
+
+        if (!$user_id) {
+            return 0;
+        }
+
+        $sql = "SELECT SUM(amount) as total FROM $this->table_name WHERE user_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt === false) {
+            throw new \Exception($this->conn->error);
+        }
+
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $stmt->bind_result($total);
+        $stmt->fetch();
+
+        $stmt->close();
+        return $total ?? 0;
+    }
+
     public function storeIncome($data)
     {
         $user_id = $this->sessionStart();

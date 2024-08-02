@@ -10,7 +10,6 @@ class BudgetController {
   public function __construct()
   {
   	$hello = $this->users = new Budgets();
-    print_r($hello);
   }
 
   public function showBudget()

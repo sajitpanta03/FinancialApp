@@ -1,4 +1,7 @@
-<?php include "userPage.php"; ?>
+<?php
+include "userPage.php";
+
+session_start();
+?>
 <div class="upDashboard" style="display: flex; justify-content: center; align-text: center; margin-top: 140px">
-    <h3>Budget</h3>
 </div>

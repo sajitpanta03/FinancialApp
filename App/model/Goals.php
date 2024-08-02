@@ -39,11 +39,34 @@ class Goals
         return $goals;
     }
 
+    public function getUserGoalsTotal()
+    {
+        $user_id = $this->sessionStart();
+
+        if (!$user_id) {
+            return 0;
+        }
+
+        $sql = "SELECT SUM(target_amount) as total FROM $this->table_name WHERE user_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt === false) {
+            throw new \Exception($this->conn->error);
+        }
+
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $stmt->bind_result($total);
+        $stmt->fetch();
+
+        $stmt->close();
+        return $total ?? 0;
+    }
+
     public function storeGoal($data)
     {
         $user_id = $this->sessionStart();
 
-        $sql = "INSERT INTO goals (name, target_amount, target_date, risk_tolerance, user_id) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO goals (name, target_amount, target_date, risk_tolerance, budget_id, user_id) VALUES (?, ?, ?, ?, ?, ?)";
 
         $stmt = $this->conn->prepare($sql);
         if ($stmt === false) {
@@ -51,11 +74,12 @@ class Goals
         }
 
         $stmt->bind_param(
-            'sdssi',
+            'sdssii',
             $data['name'],
             $data['target_amount'],
             $data['target_date'],
             $data['risk_tolerance'],
+            $data['budget_id'],
             $user_id
         );
 
@@ -77,6 +101,35 @@ class Goals
         }
 
         $stmt->bind_param('ii', $id, $user_id);
+
+        if (!$stmt->execute()) {
+            die('Error in executing statement: ' . $stmt->error);
+        }
+
+        $result = $stmt->get_result();
+
+        if (!$result) {
+            die('Error in getting result set: ' . $stmt->error);
+        }
+
+        $goal = $result->fetch_assoc();
+
+        $stmt->close();
+
+        return $goal;
+    }
+
+    public function getUserGoal()
+    {
+        $user_id = $this->sessionStart();
+
+        $stmt = $this->conn->prepare("SELECT * FROM $this->table_name WHERE user_id = ?");
+
+        if (!$stmt) {
+            die('Error in preparing statement: ' . $this->conn->error);
+        }
+
+        $stmt->bind_param('i', $user_id);
 
         if (!$stmt->execute()) {
             die('Error in executing statement: ' . $stmt->error);
@@ -177,15 +230,21 @@ class Goals
 
     public function search($data)
     {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $user_id = $this->sessionStart();
+
         $searchTerm = "%$data%";
-        $sql = "SELECT * FROM $this->table_name WHERE name LIKE ?";
+        $sql = "SELECT * FROM $this->table_name WHERE name LIKE ? AND user_id = ?";
 
         $stmt = $this->conn->prepare($sql);
         if ($stmt === false) {
             throw new \Exception("Prepare failed: " . $this->conn->error);
         }
 
-        $stmt->bind_param("s", $searchTerm);
+        $stmt->bind_param("si", $searchTerm, $user_id);
         $result = $stmt->execute();
         if ($result === false) {
             throw new \Exception("Execute failed: " . $stmt->error);
@@ -205,9 +264,37 @@ class Goals
         return $goals;
     }
 
+    public function getBudgetName()
+    {
+        $user_id = $this->sessionStart();
+
+        $sql = "SELECT id, name FROM budgets WHERE user_id = ?";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result === false) {
+            throw new \Exception("Get result failed: " . $stmt->error);
+        }
+
+        $getBudgetName = [];
+        while ($row = $result->fetch_assoc()) {
+            $getBudgetName[] = $row;
+        }
+
+        $stmt->close();
+
+        return $getBudgetName;
+
+    }
+
     public function sessionStart()
     {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         $user_id = $_SESSION['user_id'] ?? null;
         return $user_id;
     }

@@ -1,3 +1,7 @@
+<?php if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+} ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,12 +48,31 @@
                     <option value="high">High</option>
                 </select>
             </div>
+
+            <?php
+if (!empty($budgetOfThatUser)) {
+    ?>
+
+<label for="risk_tolerance">Associated Budget:</label>
+<div class="selectRisk">
+    <select id="risk_tolerance" name="budget_id" required>
+        <?php foreach ($budgetOfThatUser as $budgetName): ?>
+            <option value="<?php echo htmlspecialchars($budgetName['id'], ENT_QUOTES, 'UTF-8'); ?>">
+                <?php echo htmlspecialchars($budgetName['name'], ENT_QUOTES, 'UTF-8'); ?>
+            </option>
+        <?php endforeach;?>
+    </select>
+</div>
+<?php
+} else {
+    echo '<p>No budget names available.</p>';
+}?>
         </fieldset>
 
-        <input type="hidden" name="user_id" value="<?php 
-        session_start();
-        echo $_SESSION['user_id'];
-        ?>">
+        <input type="hidden" name="user_id" value="<?php
+session_start();
+echo $_SESSION['user_id'];
+?>">
         <input type="submit" value="Submit">
     </form>
 

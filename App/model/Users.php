@@ -68,10 +68,14 @@ class Users
                 if (password_verify($password, $user['password'])) {
                     return $user;
                 } else {
-                    throw new Exception("Invalid email or password");
+                    $_SESSION['message'] = "Invalid Credentials";
+                    header("Location: /FinancialApp/login");
+                    exit;
                 }
             } else {
-                throw new Exception("User not found");
+                $_SESSION['message'] = "Invalid Credentials";
+                header("Location: /FinancialApp/login");
+                exit;
             }
 
         } catch (Exception $e) {

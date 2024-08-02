@@ -8,6 +8,15 @@
 </head>
 <body>
   <div class="wrapper">
+    <div class="alert">
+    <?php
+session_start();
+if (isset($_SESSION['message'])) {
+    echo '<div class="alert">' . $_SESSION['message'] . '</div>';
+    unset($_SESSION['message']);
+}
+?>
+    </div>
     <form method="POST" action="FinancialApp/loginUser">
       <h2>Login</h2>
         <div class="input-field">
@@ -33,3 +42,11 @@
   </div>
 </body>
 </html>
+
+<style>
+  .alert {
+    color: red;
+    font-size: 18px;
+    font-weight: bold;
+  }
+</style>

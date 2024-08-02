@@ -2,7 +2,7 @@
 // Landing page
 $router->get("/", "App\\controller\\HomeController@home");
 $router->get("/about", "App\\controller\\HomeController@about");
-$router->get("/contact", "App\\controller\\HomeController@contact");
+$router->get("/contact", "App\\controller\\HomeController@1989contact");
 
 // Auth 
 $router->get("/register", "App\\controller\\UserAuthController@showRegister");
@@ -25,6 +25,7 @@ $router->get('/EditGoal/{id}', "App\\controller\\GoalController@showEdit");
 $router->post('/goalEdit', "App\\controller\\GoalController@editGoal");
 $router->post('/deleteGoal', "App\\controller\\GoalController@deleteGoal");
 $router->post('/searchGoal', "App\\controller\\GoalController@searchGoals");
+$router->get('/getUserGoal', "App\\controller\\GoalController@getUserGoal");
 
 
 // Income dashboard
