@@ -5,8 +5,8 @@
     <p>Aenean lacinia bibendum nulla sed consectetur.</p>
   </a>
   <a href="#" class="data-card">
-    <h3>270</h3>
-    <h4>Care Facilities</h4>
+    <h4>Total Budget Amount</h4>
+    <h3><?php echo $getUserBudgetsTotal; ?></h3>
     <p>Aenean lacinia bibendum nulla sed consectetur.</p>
   </a>
   <a href="#" class="data-card">

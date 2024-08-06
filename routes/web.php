@@ -2,7 +2,7 @@
 // Landing page
 $router->get("/", "App\\controller\\HomeController@home");
 $router->get("/about", "App\\controller\\HomeController@about");
-$router->get("/contact", "App\\controller\\HomeController@1989contact");
+$router->get("/contact", "App\\controller\\HomeController@contact");
 
 // Auth 
 $router->get("/register", "App\\controller\\UserAuthController@showRegister");
@@ -35,6 +35,13 @@ $router->post('/incomeStore', "App\\controller\\IncomeController@storeIncome");
 $router->get('/EditIncome/{id}', "App\\controller\\IncomeController@showEdit");
 $router->post('/incomeEdit', "App\\controller\\IncomeController@editIncome");
 $router->post('/deleteIncome', "App\\controller\\IncomeController@deleteIncome");
+$router->post('/searchIncome', "App\\controller\\IncomeController@searchIncomes");
 
-
-
+// Budget dashboard
+$router->get('/budget', "App\\controller\\BudgetController@showBudgets");
+$router->get('/addBudget', "App\\controller\\BudgetController@showAdd");
+$router->post('/budgetStore', "App\\controller\\BudgetController@storeBudget");
+$router->get('/EditBudget/{id}', "App\\controller\\BudgetController@showEdit");
+$router->post('/budgetEdit', "App\\controller\\BudgetController@editBudget");
+$router->post('/deleteBudget', "App\\controller\\BudgetController@deleteBudget");
+$router->post('/searchBudget', "App\\controller\\BudgetController@searchBudget");

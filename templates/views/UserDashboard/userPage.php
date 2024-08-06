@@ -67,32 +67,8 @@ if (!isLoggedIn()) {
             </li>
             <li>
                 <a href="#">
-                    <i class='bx bx-coin-stack'></i>
-                    <span class="links_name">Stock</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-book-alt'></i>
-                    <span class="links_name">Total order</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-user'></i>
-                    <span class="links_name">Team</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-message'></i>
-                    <span class="links_name">Messages</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
                     <i class='bx bx-heart'></i>
-                    <span class="links_name">Favrorites</span>
+                    <span class="links_name">Expenses</span>
                 </a>
             </li>
             <li>

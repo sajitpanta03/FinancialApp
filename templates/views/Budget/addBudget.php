@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="assets/formStyle.css">
-    <title>Add Goal</title>
+    <title>Add Budget</title>
 </head>
 
 <body>
@@ -20,27 +20,24 @@
     </div>
 
     <div class="h1Container">
-        <h1>Add Goal</h1>
+        <h1>Add Budget</h1>
     </div>
 
-    <form id="goalForm" method="POST" action="incomeStore">
+    <form id="goalForm" method="POST" action="budgetStore">
         <fieldset>
-            <legend>Income Information</legend>
+            <legend>Budget Information</legend>
 
-            <label for="name">Income Name:</label>
+            <label for="name">Budget Name:</label>
             <input type="text" id="name" name="name" required>
 
-            <label for="amount">Income Amount:</label>
-            <input type="number" id="amount" name="amount" required>
+            <label for="amount">Budget Amount:</label>
+            <input type="number" id="amount" name="total_amount" required>
 
-            <label for="type">Income Type:</label>
-            <div class="selectRisk">
-                <select id="risk_tolerance" name="type" required>
-                    <option value="bonus">Bonous</option>
-                    <option value="salary">Salary</option>
-                    <option value="interest">Interest</option>
-                </select>
-            </div>
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="target_date" name="start_date" required>
+
+            <label for="end_date">End Date:</label>
+            <input type="date" id="target_date" name="end_date" required>
         </fieldset>
 
         <input type="hidden" name="user_id" value="<?php

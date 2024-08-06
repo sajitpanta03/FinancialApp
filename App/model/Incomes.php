@@ -189,9 +189,48 @@ class Incomes
         return true;
     }
 
+
+    public function search($data)
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $user_id = $this->sessionStart();
+
+        $searchTerm = "%$data%";
+        $sql = "SELECT * FROM $this->table_name WHERE name LIKE ? AND user_id = ?";
+
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt === false) {
+            throw new \Exception("Prepare failed: " . $this->conn->error);
+        }
+
+        $stmt->bind_param("si", $searchTerm, $user_id);
+        $result = $stmt->execute();
+        if ($result === false) {
+            throw new \Exception("Execute failed: " . $stmt->error);
+        }
+
+        $result = $stmt->get_result();
+        if ($result === false) {
+            throw new \Exception("Get result failed: " . $stmt->error);
+        }
+
+        $income = [];
+        while ($row = $result->fetch_assoc()) {
+            $income[] = $row;
+        }
+
+        $stmt->close();
+        return $income;
+    }
+
     public function sessionStart()
     {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         $user_id = $_SESSION['user_id'] ?? null;
         return $user_id;
     }

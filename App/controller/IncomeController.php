@@ -125,4 +125,25 @@ class IncomeController
             return view('/UserDashboard/userPageIncome', null, "Sorry, error when deleting the goal: " . $error->getMessage());
         }
     }
+
+    public function searchIncomes()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
+            $searchTerm = $_POST['search'];
+            error_log("Search term: " . $searchTerm);
+            $searchIncomes = $this->incomes->search($searchTerm);
+            error_log(print_r($searchIncomes, true));
+    
+            if (!empty($searchIncomes)) {
+                return view('/UserDashboard/userPageSearchIncome', ['searchIncomes' => $searchIncomes]);
+            } else {
+                error_log('No search results found.');
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
+                exit;
+            }
+        } else {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit;
+        }
+    }
 }

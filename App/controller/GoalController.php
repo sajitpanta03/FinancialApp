@@ -64,11 +64,22 @@ class GoalController
     {
         try {
             $goal = $this->goals->getGoalById($id);
-            return view('/Goal/editGoal', ['goal' => $goal]);
+    
+            $budget = $this->goals->getBudgetById($goal['budget_id']);
+    
+            $budgets = $this->goals->getBudgetName();
+    
+            return view('/Goal/editGoal', [
+                'goal' => $goal,
+                'budget' => $budget,
+                'budgets' => $budgets
+            ]);
         } catch (Exception $e) {
             die('Error: ' . $e->getMessage());
         }
     }
+    
+    
 
     public function editGoal()
     {
@@ -78,9 +89,11 @@ class GoalController
             'target_amount' => $_POST['target_amount'] ?? null,
             'target_date' => $_POST['target_date'] ?? null,
             'risk_tolerance' => $_POST['risk_tolerance'] ?? null,
+            'budget_id' => $_POST['budget_id'] ?? null,
         ];
 
-        $requiredFields = ['name', 'target_amount', 'target_date', 'risk_tolerance'];
+
+        $requiredFields = ['name', 'target_amount', 'target_date', 'risk_tolerance', 'budget_id'];
         $missingFields = [];
 
         foreach ($requiredFields as $field) {
@@ -142,13 +155,10 @@ class GoalController
                 return view('/UserDashboard/userPageSearch', ['searchGoals' => $searchGoals]);
             } else {
                 error_log('No search results found.');
-                $_SESSION['message'] = 'No goals found.';
                 header('Location: ' . $_SERVER['HTTP_REFERER']);
                 exit;
             }
         } else {
-            // If no search term is provided, redirect back with an error message
-            $_SESSION['message'] = 'Please enter a search term.';
             header('Location: ' . $_SERVER['HTTP_REFERER']);
             exit;
         }

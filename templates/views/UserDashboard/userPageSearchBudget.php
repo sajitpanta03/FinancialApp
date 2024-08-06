@@ -42,8 +42,8 @@
                 </tr>
             </thead>
             <tbody id="goalsList">
-                <?php if (!empty($budgets)) : ?>
-                    <?php foreach ($budgets as $index => $budget) : ?>
+                <?php if (!empty($searchBudgets)) : ?>
+                    <?php foreach ($searchBudgets as $index => $budget) : ?>
                         <tr>
                             <td><?php echo $index + 1; ?></td>
                             <td><?php echo htmlspecialchars($budget['name'], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -56,7 +56,7 @@
                                 <div class="deleteButton">
                                     <form action="deleteBudget" method="POST">
                                         <input type="hidden" name="id" value="<?php echo $budget['id']; ?>">
-                                        <button type="submit" onclick="return confirm('Are you sure you want to delete this goal?')">Delete</button>
+                                        <button type="submit" onclick="return confirm('Are you sure you want to delete this budget?')">Delete</button>
                                     </form>
                                 </div>
                             </td>
@@ -64,7 +64,7 @@
                     <?php endforeach; ?>
                 <?php else : ?>
                     <tr>
-                        <td colspan="6">No goals found.</td>
+                        <td colspan="6">No budget found.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

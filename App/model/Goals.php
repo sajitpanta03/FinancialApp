@@ -119,6 +119,36 @@ class Goals
         return $goal;
     }
 
+    public function getBudgetById($id)
+    {
+        $user_id = $this->sessionStart();
+
+        $stmt = $this->conn->prepare("SELECT * FROM budgets WHERE id = ? AND user_id = ?");
+        
+        if (!$stmt) {
+            die('Error in preparing statement: ' . $this->conn->error);
+        }
+
+        $stmt->bind_param('ii', $id, $user_id);
+
+        if (!$stmt->execute()) {
+            die('Error in executing statement: ' . $stmt->error);
+        }
+
+        $result = $stmt->get_result();
+
+        if (!$result) {
+            die('Error in getting result set: ' . $stmt->error);
+        }
+
+        $budget = $result->fetch_assoc();
+
+        $stmt->close();
+
+        return $budget;
+
+    }
+
     public function getUserGoal()
     {
         $user_id = $this->sessionStart();
@@ -168,7 +198,8 @@ class Goals
                 name = ?,
                 target_amount = ?,
                 target_date = ?,
-                risk_tolerance = ?
+                risk_tolerance = ?,
+                budget_id = ?
             WHERE id = ?"
         );
 
@@ -180,11 +211,12 @@ class Goals
         }
 
         $stmt->bind_param(
-            "sissi",
+            "sissii",
             $data['name'],
             $data['target_amount'],
             $data['target_date'],
             $data['risk_tolerance'],
+            $data['budget_id'],
             $data['id']
         );
 
@@ -287,7 +319,6 @@ class Goals
         $stmt->close();
 
         return $getBudgetName;
-
     }
 
     public function sessionStart()

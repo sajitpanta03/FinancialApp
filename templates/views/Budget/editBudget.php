@@ -1,3 +1,9 @@
+<?php
+if (!isset($budget)) {
+    die('Budget data not available.');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/assets/formStyle.css">
-    <title>Edit Goal</title>
+    <title>Edit Budget</title>
 </head>
 
 <body>
@@ -20,7 +26,7 @@
     </div>
 
     <div class="h1Container">
-        <h1>Edit Goal</h1>
+        <h1>Edit Budget</h1>
     </div>
 
     <?php
@@ -31,41 +37,28 @@
     }
     ?>
 
-    <form id="goalForm" method="POST" action="/FinancialApp/goalEdit">
+    <form id="goalForm" method="POST" action="/FinancialApp/budgetEdit">
         <fieldset>
-            <legend>Goal Information</legend>
+            <legend>Budget Information</legend>
 
-            <label for="name">Goal Name:</label>
-            <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($goal['name']); ?>" required>
+            <label for="name">Budget Name:</label>
+            <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($budget['name']); ?>" required>
 
-            <label for="target_amount">Target Amount:</label>
-            <input type="number" id="target_amount" name="target_amount" value="<?php echo htmlspecialchars($goal['target_amount']); ?>" required>
+            <label for="amount">Target Amount:</label>
+            <input type="number" id="amount" name="total_amount" value="<?php echo htmlspecialchars($budget['total_amount']); ?>" required>
 
-            <label for="target_date">Target Date:</label>
-            <input type="date" id="target_date" name="target_date" value="<?php echo htmlspecialchars($goal['target_date']); ?>" required>
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="target_date" name="start_date" value="<?php echo htmlspecialchars($budget['start_date']); ?>" required>
 
-            <label for="risk_tolerance">Risk Tolerance:</label>
-            <select id="risk_tolerance" name="risk_tolerance" required>
-                <option value="low" <?php if ($goal['risk_tolerance'] == 'low') echo 'selected'; ?>>Low</option>
-                <option value="medium" <?php if ($goal['risk_tolerance'] == 'medium') echo 'selected'; ?>>Medium</option>
-                <option value="high" <?php if ($goal['risk_tolerance'] == 'high') echo 'selected'; ?>>High</option>
-            </select>
-
-            <label for="budget_id">Budget:</label>
-            <select id="budget_id" name="budget_id" required>
-                <?php foreach ($budgets as $bud): ?>
-                    <option value="<?php echo $bud['id']; ?>" <?php if ($goal['budget_id'] == $bud['id']) echo 'selected'; ?>>
-                        <?php echo htmlspecialchars($bud['name']); ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
+            <label for="end_date">End Date:</label>
+            <input type="date" id="target_date" name="end_date" value="<?php echo htmlspecialchars($budget['end_date']); ?>" required>
         </fieldset>
 
-        <input type="hidden" name="id" value="<?php echo $goal['id']; ?>">
-        <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+        <input type="hidden" name="id" value="<?php echo $budget['id']; ?>">
+
+        <input type="hidden" name="user_id" value="<?php echo $budget['user_id']; ?>">
         <input type="submit" value="Submit">
     </form>
-
     <style>
         body {
             font-family: Arial, sans-serif;
