@@ -16,7 +16,6 @@ $router->get("/logout", "App\\controller\\UserAuthController@logout");
 $router->get("/dashboard", "App\\controller\\UserController@showDashboard");
 $router->get('/budget', "App\\controller\\BudgetController@showBudget");
 
-
 // Goal dashboard
 $router->get('/goal', "App\\controller\\GoalController@showGoal");
 $router->get('/AddGoal', "App\\controller\\GoalController@showAdd");
@@ -26,7 +25,6 @@ $router->post('/goalEdit', "App\\controller\\GoalController@editGoal");
 $router->post('/deleteGoal', "App\\controller\\GoalController@deleteGoal");
 $router->post('/searchGoal', "App\\controller\\GoalController@searchGoals");
 $router->get('/getUserGoal', "App\\controller\\GoalController@getUserGoal");
-
 
 // Income dashboard
 $router->get('/income', "App\\controller\\IncomeController@showIncomes");
@@ -45,3 +43,16 @@ $router->get('/EditBudget/{id}', "App\\controller\\BudgetController@showEdit");
 $router->post('/budgetEdit', "App\\controller\\BudgetController@editBudget");
 $router->post('/deleteBudget', "App\\controller\\BudgetController@deleteBudget");
 $router->post('/searchBudget', "App\\controller\\BudgetController@searchBudget");
+
+// Expense dashboard
+$router->get('/expense', "App\\controller\\ExpenseController@showExpense");
+$router->get('/AddExpense', "App\\controller\\ExpenseController@showAdd");
+$router->post('/expenseStore', "App\\controller\\ExpenseController@storeExpense");
+$router->get('/EditExpense/{id}', "App\\controller\\ExpenseController@showEdit");
+$router->post('/expenseEdit', "App\\controller\\ExpenseController@editExpense");
+$router->post('/deleteExpense', "App\\controller\\ExpenseController@deleteExpense");
+$router->post('/searchExpense', "App\\controller\\ExpenseController@searchExpenses");
+$router->get('/getUserExpense', "App\\controller\\ExpenseController@getUserExpense");
+
+// Analytic dashboard
+$router->get('/analytic', "App\\controller\\AnalyticController@showAnalytic");

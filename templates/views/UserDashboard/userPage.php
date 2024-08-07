@@ -59,16 +59,16 @@ if (!isLoggedIn()) {
                     <span class="links_name">Incomes</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-pie-chart-alt-2'></i>
-                    <span class="links_name">Analytics</span>
+              <li>
+                <a href="expense">
+                    <i class='bx bx-heart'></i>
+                    <span class="links_name">Expenses</span>
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <i class='bx bx-heart'></i>
-                    <span class="links_name">Expenses</span>
+                <a href="analytic">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="links_name">Analytics</span>
                 </a>
             </li>
             <li>

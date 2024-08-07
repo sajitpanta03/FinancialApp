@@ -120,12 +120,12 @@ class BudgetController
             $result = $this->budgets->deleteBudget($id);
 
             if ($result) {
-                return view('/UserDashboard/userPageBudget', null, "Goal deleted successfully!");
+                return view('/UserDashboard/userPageBudget', null, "Expense deleted successfully!");
             } else {
-                return view('/UserDashboard/userPageBudget', null, "Goal deletion unsuccessful!");
+                return view('/UserDashboard/userPageBudget', null, "Expense deletion unsuccessful!");
             }
         } catch (Exception $error) {
-            return view('/UserDashboard/userPageBudget', null, "Sorry, error when deleting the goal: " . $error->getMessage());
+            return view('/UserDashboard/userPageBudget', null, "Sorry, error when deleting the expense: " . $error->getMessage());
         }
     }
 
