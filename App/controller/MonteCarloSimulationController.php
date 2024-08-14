@@ -8,8 +8,9 @@ class MonteCarloSimulationController {
 
     public function __construct() {
         $this->conn = new \Database;
+        $this->conn = $this->conn->dbConnection();
         $this->userId = 2;
-        $this->numSimulations = 1000;
+        $this->numSimulations = 10;
     }
 
     private function getRandomValue($value) {

@@ -72,6 +72,12 @@ if (!isLoggedIn()) {
                 </a>
             </li>
             <li>
+                <a href="calculation">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="links_name">Calculation</span>
+                </a>
+            </li>
+            <li>
                 <a href="#">
                     <i class='bx bx-cog'></i>
                     <span class="links_name">Setting</span>

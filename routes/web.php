@@ -56,3 +56,12 @@ $router->get('/getUserExpense', "App\\controller\\ExpenseController@getUserExpen
 
 // Analytic dashboard
 $router->get('/analytic', "App\\controller\\AnalyticController@showAnalytic");
+$router->get('/apriori', "App\\controller\\AnalyticController@apriori");
+$router->get('/aprioriReport', 'App\\controller\\AnalyticController@apioriReport');
+$router->get('/aprioriPDF', 'App\\controller\\AnalyticController@generatePdfReport');
+
+// Calculation dashboard
+$router->get('/calculation', "App\\controller\\CalculationController@showCalculation");
+$router->get('/amortizationSchedule', "App\\controller\\CalculationController@AmortizationSchedule");
+$router->get('/amortizationResult', "App\\controller\\AmortizationSchedule@amortizationResult");
+
