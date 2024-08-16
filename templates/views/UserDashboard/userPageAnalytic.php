@@ -17,7 +17,7 @@
             max-height: 100dvh;
             margin: auto;
             gap: 20px;
-            top: 690px; /* Adjusts the vertical position of the buttons */
+            top: 690px;
         }
 
         .top .button1 button,
@@ -49,14 +49,14 @@
             max-height: 100dvh;
             margin: auto;
             gap: 20px;
-            width: 600px; /* Adjust the width of the pie chart container */
-            height: auto; /* Adjust the height of the pie chart container */
-            margin: 20px auto; /* Center the pie chart at the top */
+            width: 600px; 
+            height: auto;
+            margin: 20px auto;
             text-align: center;
         }
 
         canvas {
-            max-width: 100%; /* Ensure the canvas does not exceed its container's size */
+            max-width: 100%;
             height: auto;
         }
     </style>
@@ -70,7 +70,7 @@
 
 <div class="top">
     <div class="button1">
-        <button onclick="location.href='monteCarlo.php'" type="button">
+        <button onclick="location.href='monteCarlo'" type="button">
             MonteCarlo Simulation
         </button>
     </div>
@@ -94,9 +94,9 @@
                     <?php echo $goalTotal; ?>
                 ],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',  // Color for Budget
-                    'rgba(54, 162, 235, 0.2)',  // Color for Income
-                    'rgba(75, 192, 192, 0.2)'   // Color for Goals
+                    'rgba(255, 99, 132, 0.2)',  
+                    'rgba(54, 162, 235, 0.2)', 
+                    'rgba(75, 192, 192, 0.2)' 
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',

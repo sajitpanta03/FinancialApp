@@ -1,22 +1,3 @@
-<?php
-
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-function isLoggedIn()
-{
-    return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
-}
-
-if (!isLoggedIn()) {
-    header('location: login');
-    exit();
-}
-
-
-?>
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 

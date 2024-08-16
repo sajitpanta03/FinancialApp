@@ -28,6 +28,10 @@
  echo '<table border="1">';
  echo '<tr><th>Payment Number</th><th>Principal Payment</th><th>Interest Payment</th><th>Total Payment</th><th>Balance</th></tr>';
 
+if (empty($scheduleData)) {
+    $scheduleData = null;
+}
+
  if (is_array($scheduleData)) {
      foreach ($scheduleData as $data) {
          echo '<tr>';

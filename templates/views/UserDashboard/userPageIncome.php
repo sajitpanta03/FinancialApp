@@ -62,7 +62,7 @@
                     <?php endforeach; ?>
                 <?php else : ?>
                     <tr>
-                        <td colspan="6">No goals found.</td>
+                        <td colspan="6">No incomes found.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

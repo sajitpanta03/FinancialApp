@@ -65,5 +65,5 @@ $router->get('/aprioriPDF', 'App\\controller\\AnalyticController@generatePdfRepo
 // Calculation dashboard
 $router->get('/calculation', "App\\controller\\CalculationController@showCalculation", [AuthMiddleware::class]);
 $router->get('/amortizationSchedule', "App\\controller\\CalculationController@AmortizationSchedule", [AuthMiddleware::class]);
-$router->get('/amortizationResult', "App\\controller\\AmortizationSchedule@amortizationResult", [AuthMiddleware::class]);
+$router->post('/amortizationResult', "App\\controller\\AmortizationSchedule@amortizationResult", [AuthMiddleware::class]);
 

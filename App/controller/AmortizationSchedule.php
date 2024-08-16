@@ -1,4 +1,5 @@
 <?php
+
 namespace App\controller;
 
 class AmortizationSchedule
@@ -7,7 +8,7 @@ class AmortizationSchedule
     protected $annualRate;
     protected $termsInYears;
 
-    public function __construct($principal, $annualRate, $termsInYears)
+    public function __construct($principal = null, $annualRate = null, $termsInYears = null)
     {
         $this->principal = $principal;
         $this->annualRate = $annualRate;
@@ -21,20 +22,22 @@ class AmortizationSchedule
             $principal = filter_input(INPUT_POST, 'principal', FILTER_VALIDATE_FLOAT);
             $annualRate = filter_input(INPUT_POST, 'annual_rate', FILTER_VALIDATE_FLOAT);
             $termsInYears = filter_input(INPUT_POST, 'terms_in_years', FILTER_VALIDATE_INT);
-    
+
+            // Set properties if they were not set via the constructor
+            $this->principal = $this->principal ?? $principal;
+            $this->annualRate = $this->annualRate ?? $annualRate;
+            $this->termsInYears = $this->termsInYears ?? $termsInYears;
+
             // Check if inputs are valid
-            if ($principal === false || $annualRate === false || $termsInYears === false || $principal <= 0 || $annualRate <= 0 || $termsInYears <= 0) {
+            if ($this->principal === false || $this->annualRate === false || $this->termsInYears === false || $this->principal <= 0 || $this->annualRate <= 0 || $this->termsInYears <= 0) {
                 // Handle invalid inputs
                 echo 'Invalid input. Please check your values.';
                 return;
             }
-    
-            // Instantiate the AmortizationSchedule class
-            $schedule = new AmortizationSchedule($principal, $annualRate, $termsInYears);
-    
+
             // Generate the amortization schedule
-            $scheduleData = $schedule->generateSchedule();
-    
+            $scheduleData = $this->generateSchedule();
+
             // Pass the data to the view
             return view('/Calculation/amortizationSchedule', ['scheduleData' => $scheduleData]);
         } else {
@@ -42,7 +45,6 @@ class AmortizationSchedule
             echo 'Invalid request method. Please use POST to submit the form.';
         }
     }
-    
 
     public function generateSchedule()
     {
