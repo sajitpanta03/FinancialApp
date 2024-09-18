@@ -21,11 +21,11 @@ class Users
         return $stmt->fetch();
     }
 
-    public function register($name, $email, $password)
+    public function register($name, $email, $password, $type)
     {
 
         try {
-            $sql = "INSERT INTO $this->table_name (name, email, password) VALUES (?, ?, ?)";
+            $sql = "INSERT INTO $this->table_name (name, email, password, type) VALUES (?, ?, ?, ?)";
 
             $stmt = $this->conn->prepare($sql);
             if (!$stmt) {
@@ -34,13 +34,12 @@ class Users
 
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-            $stmt->bind_param('sss', $name, $email, $hashed_password);
+            $stmt->bind_param('ssss', $name, $email, $hashed_password, $type);
             if (!$stmt->execute()) {
                 throw new Exception("Registration failed: " . $this->conn->error);
             }
 
             return true;
-
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -50,36 +49,55 @@ class Users
     {
         try {
             $sql = "SELECT * FROM $this->table_name WHERE email = ?";
-
+            
             $stmt = $this->conn->prepare($sql);
             if (!$stmt) {
-                throw new Exception("Failed to prepare statement: " . $this->conn->error);
+                throw new Exception("Failed to prepare statement");
             }
-
+    
             $stmt->bind_param('s', $email);
             if (!$stmt->execute()) {
-                throw new Exception("Login failed: " . $this->conn->error);
+                throw new Exception("Failed to execute statement");
             }
-
+    
             $result = $stmt->get_result();
             $user = $result->fetch_assoc();
-
-            if ($user) {
-                if (password_verify($password, $user['password'])) {
-                    return $user;
-                } else {
-                    $_SESSION['message'] = "Invalid Credentials";
-                    header("Location: /FinancialApp/login");
+    
+            if ($user && password_verify($password, $user['password'])) {
+                session_regenerate_id(true);
+    
+                if ($user['type'] === 'user') {
+                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['user_email'] = $user['email'];
+                    $_SESSION['logged_in'] = true;
+    
+                    header("Location: /FinancialApp/dashboard");
+                    exit;
+                } elseif ($user['type'] === 'admin') {
+                    $_SESSION['admin_id'] = $user['id'];
+                    $_SESSION['user_email'] = $user['email'];
+                    $_SESSION['logged_in'] = true;
+    
+                    header("Location: /FinancialApp/admin");
                     exit;
                 }
-            } else {
-                $_SESSION['message'] = "Invalid Credentials";
-                header("Location: /FinancialApp/login");
-                exit;
             }
-
+    
+            if ($user) {
+                $_SESSION['message'] = "Invalid credentials";
+            } else {
+                $_SESSION['message'] = "User not found.";
+            }
+    
+            header("Location: /FinancialApp/login");
+            exit;
+    
         } catch (Exception $e) {
-            throw new Exception($e->getMessage());
+            error_log($e->getMessage());
+            $_SESSION['message'] = "An error occurred. Please try again later.";
+            header("Location: /FinancialApp/login");
+            exit;
         }
     }
+    
 }

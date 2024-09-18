@@ -17,7 +17,7 @@
                 <h1>FA Calendar</h1>
                 <div id="event-section">
                     <h3>Add Event</h3>
-                    <input type="date" id="eventDate">
+                    <input type="date" id="eventDate" min=<?php echo date('Y-m-d'); ?> required>
                     <input type="text"
                         id="eventTitle"
                         placeholder="Event Title">

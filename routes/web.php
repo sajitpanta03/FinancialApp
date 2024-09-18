@@ -1,4 +1,6 @@
 <?php
+
+use App\middleware\AdminMiddleware;
 use App\middleware\AuthMiddleware;
 
 // Landing page
@@ -67,3 +69,7 @@ $router->get('/calculation', "App\\controller\\CalculationController@showCalcula
 $router->get('/amortizationSchedule', "App\\controller\\CalculationController@AmortizationSchedule", [AuthMiddleware::class]);
 $router->post('/amortizationResult', "App\\controller\\AmortizationSchedule@amortizationResult", [AuthMiddleware::class]);
 
+
+// Admin dashboard
+$router->get('/admin', "App\\controller\\AdminController@index", [AdminMiddleware::class]);
+$router->get('/adminDashboard', "App\\controller\\AdminController@adminDashboard", [AdminMiddleware::class]);

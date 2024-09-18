@@ -1,11 +1,13 @@
 <?php
+
 namespace App\controller;
 
 require_once __DIR__ . '/../model/Users.php';
 
 use App\model\Users;
 
-class UserAuthController {
+class UserAuthController
+{
 
   public $users;
 
@@ -26,14 +28,15 @@ class UserAuthController {
       $email = $_POST['email'];
       $password = $_POST['password'];
       $c_password = $_POST['c_password'];
+      $type = 'user';
 
       if ($password != $c_password) {
-          echo "password and confirm password should be same";
-          exit();
+        echo "password and confirm password should be same";
+        exit();
       }
 
       try {
-        $registered = $this->users->register($name, $email, $password);
+        $registered = $this->users->register($name, $email, $password, $type);
 
         if ($registered) {
           echo 'User registered successfully!';
@@ -56,38 +59,24 @@ class UserAuthController {
 
   public function login()
   {
-      session_start();
-  
-      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-          $email = $_POST['email'];
-          $password = $_POST['password'];
-  
-          try {
-              $user = $this->users->login($email, $password);
-  
-              if ($user) {
-                  session_regenerate_id(true);
-  
-                  $_SESSION['user_id'] = $user['id'];
-                  $_SESSION['user_email'] = $user['email'];
-                  $_SESSION['logged_in'] = true;
-  
-                  header("Location: /FinancialApp/dashboard");
-                  exit;
-              } else {
-                  $_SESSION['message'] = "Invalid Credentials";
-                  header("Location: /Auth/login");
-                  exit;
-              }
-          } catch (Exception $e) {
-              echo 'Error: ' . $e->getMessage();
-          }
-      } else {
-          http_response_code(405);
-          echo 'Method not allowed';
+    session_start();
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $email = $_POST['email'];
+      $password = $_POST['password'];
+
+      $type = $_POST['type'] ?? 'user';
+
+      try {
+        $user = $this->users->login($email, $password, $type);
+      } catch (Exception $e) {
+        echo 'Error: ' . $e->getMessage();
       }
+    } else {
+      http_response_code(405);
+      echo 'Method not allowed';
+    }
   }
-  
 
   public function logout()
   {
@@ -98,4 +87,3 @@ class UserAuthController {
     exit;
   }
 }
-?>
