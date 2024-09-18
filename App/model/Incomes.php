@@ -33,6 +33,29 @@ class Incomes
         return $incomes;
     }
 
+    public function getUserIncomesTotal()
+    {
+        $user_id = $this->sessionStart();
+
+        if (!$user_id) {
+            return 0;
+        }
+
+        $sql = "SELECT SUM(amount) as total FROM $this->table_name WHERE user_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt === false) {
+            throw new \Exception($this->conn->error);
+        }
+
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $stmt->bind_result($total);
+        $stmt->fetch();
+
+        $stmt->close();
+        return $total ?? 0;
+    }
+
     public function storeIncome($data)
     {
         $user_id = $this->sessionStart();
@@ -166,9 +189,48 @@ class Incomes
         return true;
     }
 
+
+    public function search($data)
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $user_id = $this->sessionStart();
+
+        $searchTerm = "%$data%";
+        $sql = "SELECT * FROM $this->table_name WHERE name LIKE ? AND user_id = ?";
+
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt === false) {
+            throw new \Exception("Prepare failed: " . $this->conn->error);
+        }
+
+        $stmt->bind_param("si", $searchTerm, $user_id);
+        $result = $stmt->execute();
+        if ($result === false) {
+            throw new \Exception("Execute failed: " . $stmt->error);
+        }
+
+        $result = $stmt->get_result();
+        if ($result === false) {
+            throw new \Exception("Get result failed: " . $stmt->error);
+        }
+
+        $income = [];
+        while ($row = $result->fetch_assoc()) {
+            $income[] = $row;
+        }
+
+        $stmt->close();
+        return $income;
+    }
+
     public function sessionStart()
     {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         $user_id = $_SESSION['user_id'] ?? null;
         return $user_id;
     }

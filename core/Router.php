@@ -5,10 +5,10 @@ namespace core;
 class Router
 {
     private static $router;
+    private array $routes = [];
+    private array $middlewares = [];
 
-    private function __construct(private array $routes = [])
-    {
-    }
+    private function __construct() {}
 
     public static function getRouter(): self
     {
@@ -19,27 +19,27 @@ class Router
         return self::$router;
     }
 
-    public function get(string $uri, string $action): void
+    public function get(string $uri, string $action, array $middlewares = []): void
     {
-        $this->register($uri, $action, "GET");
+        $this->register($uri, $action, "GET", $middlewares);
     }
 
-    public function post(string $uri, string $action): void
+    public function post(string $uri, string $action, array $middlewares = []): void
     {
-        $this->register($uri, $action, "POST");
+        $this->register($uri, $action, "POST", $middlewares);
     }
 
-    public function put(string $uri, string $action): void
+    public function put(string $uri, string $action, array $middlewares = []): void
     {
-        $this->register($uri, $action, "PUT");
+        $this->register($uri, $action, "PUT", $middlewares);
     }
 
-    public function delete(string $uri, string $action): void
+    public function delete(string $uri, string $action, array $middlewares = []): void
     {
-        $this->register($uri, $action, "DELETE");
+        $this->register($uri, $action, "DELETE", $middlewares);
     }
 
-    protected function register(string $uri, string $action, string $method): void
+    protected function register(string $uri, string $action, string $method, array $middlewares): void
     {
         if (!isset($this->routes[$method])) {
             $this->routes[$method] = [];
@@ -50,6 +50,7 @@ class Router
         $this->routes[$method][$uri] = [
             'controller' => $controller,
             'method' => $function,
+            'middlewares' => $middlewares,
         ];
     }
 
@@ -67,27 +68,32 @@ class Router
         $basePath = str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']);
         $uri = str_replace($basePath, '', $uri);
         $uri = rtrim($uri, '/') ?: '/';
-    
+
         foreach ($this->routes[$method] as $route => $result) {
             $pattern = preg_replace('/\{[^}]+\}/', '([^/]+)', $route);
-    
+
             if (preg_match("#^$pattern$#", $uri, $matches)) {
                 $params = [];
                 preg_match_all('/\{([^}]+)\}/', $route, $paramNames);
                 $paramNames = $paramNames[1];
-    
+
                 foreach ($paramNames as $index => $paramName) {
                     $params[$paramName] = $matches[$index + 1];
                 }
-    
+
+                // Apply middlewares before executing the controller action
+                foreach ($result['middlewares'] as $middleware) {
+                    $middlewareInstance = new $middleware();
+                    $middlewareInstance->handle();
+                }
+
                 $controller = $result['controller'];
                 $function = $result['method'];
-    
+
                 if (class_exists($controller)) {
                     $controllerInstance = new $controller();
-    
+
                     if (method_exists($controllerInstance, $function)) {
-                        // Pass parameters to controller method
                         $controllerInstance->$function(...array_values($params));
                         return;
                     } else {
@@ -98,9 +104,7 @@ class Router
                 }
             }
         }
-    
-        abort("Route not found", 404);
-    }    
-    
 
+        abort("Route not found", 404);
+    }
 }

@@ -43,7 +43,10 @@
             </div>
         </fieldset>
 
-        <input type="hidden" name="user_id" value="2">
+        <input type="hidden" name="user_id" value="<?php
+session_start();
+echo $_SESSION['user_id'];
+?>">
         <input type="submit" value="Submit">
     </form>
 

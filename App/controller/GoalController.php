@@ -29,14 +29,15 @@ class GoalController
 
     public function showAdd()
     {
-        return view('/Goal/addGoal');
+        $budgetOfThatUser = $this->goals->getBudgetName();
+        return view('/Goal/addGoal', ['budgetOfThatUser' => $budgetOfThatUser]);
     }
 
     public function storeGoal()
     {
         $data = $_POST;
 
-        $requiredFields = ['name', 'target_amount', 'target_date', 'risk_tolerance'];
+        $requiredFields = ['name', 'target_amount', 'target_date', 'risk_tolerance', 'budget_id'];
         $missingFields = [];
 
         foreach ($requiredFields as $field) {
@@ -63,11 +64,22 @@ class GoalController
     {
         try {
             $goal = $this->goals->getGoalById($id);
-            return view('/Goal/editGoal', ['goal' => $goal]);
+    
+            $budget = $this->goals->getBudgetById($goal['budget_id']);
+    
+            $budgets = $this->goals->getBudgetName();
+    
+            return view('/Goal/editGoal', [
+                'goal' => $goal,
+                'budget' => $budget,
+                'budgets' => $budgets
+            ]);
         } catch (Exception $e) {
             die('Error: ' . $e->getMessage());
         }
     }
+    
+    
 
     public function editGoal()
     {
@@ -77,9 +89,11 @@ class GoalController
             'target_amount' => $_POST['target_amount'] ?? null,
             'target_date' => $_POST['target_date'] ?? null,
             'risk_tolerance' => $_POST['risk_tolerance'] ?? null,
+            'budget_id' => $_POST['budget_id'] ?? null,
         ];
 
-        $requiredFields = ['name', 'target_amount', 'target_date', 'risk_tolerance'];
+
+        $requiredFields = ['name', 'target_amount', 'target_date', 'risk_tolerance', 'budget_id'];
         $missingFields = [];
 
         foreach ($requiredFields as $field) {
@@ -131,22 +145,34 @@ class GoalController
 
     public function searchGoals()
     {
-        error_log('searchGoals method called');
-
-        $searchGoals = [];
-
-        if (isset($_POST['search'])) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
             $searchTerm = $_POST['search'];
             error_log("Search term: " . $searchTerm);
             $searchGoals = $this->goals->search($searchTerm);
             error_log(print_r($searchGoals, true));
+    
+            if (!empty($searchGoals)) {
+                return view('/UserDashboard/userPageSearch', ['searchGoals' => $searchGoals]);
+            } else {
+                error_log('No search results found.');
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
+                exit;
+            }
+        } else {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit;
         }
+    }
+    
 
-        if (!empty($searchGoals)) {
-            return view('/UserDashboard/userPageSearch', ['searchGoals' => $searchGoals]);
+    public function getUserGoal()
+    {
+        try {
+        $getUserGoal = $this->goals->getUserGoal();
+        return json_encode($getUserGoal);
+        } catch (Exeception $e) {
+            return json_encode(['error' => $e->getMessage()]);
         }
-
-        error_log('No search results found.');
     }
 
 }

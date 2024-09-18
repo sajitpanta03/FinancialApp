@@ -1,18 +1,3 @@
-<?php
-session_start();
-
-function isLoggedIn()
-{
-    return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
-}
-
-if (!isLoggedIn()) {
-    header('location: login');
-    exit();
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -55,40 +40,22 @@ if (!isLoggedIn()) {
                     <span class="links_name">Incomes</span>
                 </a>
             </li>
+              <li>
+                <a href="expense">
+                    <i class='bx bx-heart'></i>
+                    <span class="links_name">Expenses</span>
+                </a>
+            </li>
             <li>
-                <a href="#">
+                <a href="analytic">
                     <i class='bx bx-pie-chart-alt-2'></i>
                     <span class="links_name">Analytics</span>
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <i class='bx bx-coin-stack'></i>
-                    <span class="links_name">Stock</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-book-alt'></i>
-                    <span class="links_name">Total order</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-user'></i>
-                    <span class="links_name">Team</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-message'></i>
-                    <span class="links_name">Messages</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-heart'></i>
-                    <span class="links_name">Favrorites</span>
+                <a href="calculation">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="links_name">Calculation</span>
                 </a>
             </li>
             <li>

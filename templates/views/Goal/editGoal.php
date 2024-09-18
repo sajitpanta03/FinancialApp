@@ -1,9 +1,3 @@
-<?php
-if (!isset($goal)) {
-    die('Goal data not available.');
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,13 +50,22 @@ if (!isset($goal)) {
                 <option value="medium" <?php if ($goal['risk_tolerance'] == 'medium') echo 'selected'; ?>>Medium</option>
                 <option value="high" <?php if ($goal['risk_tolerance'] == 'high') echo 'selected'; ?>>High</option>
             </select>
+
+            <label for="budget_id">Budget:</label>
+            <select id="budget_id" name="budget_id" required>
+                <?php foreach ($budgets as $bud): ?>
+                    <option value="<?php echo $bud['id']; ?>" <?php if ($goal['budget_id'] == $bud['id']) echo 'selected'; ?>>
+                        <?php echo htmlspecialchars($bud['name']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </fieldset>
 
         <input type="hidden" name="id" value="<?php echo $goal['id']; ?>">
-
-        <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+        <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
         <input type="submit" value="Submit">
     </form>
+
     <style>
         body {
             font-family: Arial, sans-serif;
