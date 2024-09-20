@@ -58,12 +58,6 @@
                     <span class="links_name">Calculation</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-cog'></i>
-                    <span class="links_name">Setting</span>
-                </a>
-            </li>
             <li class="log_out">
                 <a href="logout">
                     <i class='bx bx-log-out'></i>
@@ -83,9 +77,9 @@
 
             </div>
             <div class="profile-details">
-                <img src="images/profile.jpg" alt="">
+                <!-- <img src="images/profile.jpg" alt=""> -->
                 <span class="admin_name"><?php echo $_SESSION['user_email']; ?></span>
-                <i class='bx bx-chevron-down'></i>
+                <!-- <i class='bx bx-chevron-down'></i> -->
             </div>
         </nav>
     </div>

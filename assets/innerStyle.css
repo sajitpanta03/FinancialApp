@@ -1,14 +1,17 @@
 body {
-    font-family: Helvetica;
+    font-family: Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
+    background-color: #f4f4f9;
+    color: #333;
 }
 
 h1 {
     text-align: center;
-    font-size: 25px;
+    font-size: 28px;
     text-transform: uppercase;
     letter-spacing: 1px;
     padding: 30px 0;
+    color: #444;
 }
 
 
@@ -18,86 +21,187 @@ h1 {
     margin-top: 100px;
 }
 
-
 .addButton {
     display: flex;
     justify-content: center;
+    align-items: center;
     border-radius: 50%;
     cursor: pointer;
-    background-color: black;
+    background-color: #28a745;
     height: 50px;
     width: 50px;
     border: none;
     margin-right: 186px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.addButton a  {
+.addButton:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.addButton a {
     color: white;
-    text-align: center;
+    font-size: 24px;
     text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    margin-top: 5px;
-    font-size: 28px;
+    text-align: center;
 }
-
 
 .table-wrapper {
     margin-top: 60px;
-    max-width: fit-content;
+    width: 90%;
+    max-width: 1250px;
     margin-left: auto;
     margin-right: auto;
     box-shadow: 0px 35px 50px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
 }
 
 .fl-table {
-    margin-top: -30px;
-    border-radius: 5px;
-    font-size: 19px;
-    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    border: 1px solid #e2e2e2;
     border-collapse: collapse;
-    width: 1257px;
-    max-width: 100%;
-    white-space: nowrap;
+    width: 100%;
     background-color: white;
-    height: 150px;
-}
-
-.fl-table .edit:hover {
-    color: green;
-}
-
-.fl-table .delete:hover {
-    color: red;
 }
 
 .fl-table td,
 .fl-table th {
     text-align: center;
-    /* padding: 8px; */
-}
-
-.fl-table td {
-    border-right: 1px solid #f8f8f8;
-    font-size: 17px;
+    padding: 12px 15px;
+    border-bottom: 1px solid #e2e2e2;
+    transition: background-color 0.3s ease;
 }
 
 .fl-table thead th {
-    color: #ffffff;
-    background: #4FC3A1;
+    color: white;
+    background: #28a745;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
-
 
 .fl-table thead th:nth-child(odd) {
-    color: #ffffff;
-    background: #324960;
+    background: #218838;
 }
 
-.fl-table tr:nth-child(even) {
-    background: #F8F8F8;
+.fl-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.fl-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.fl-table td {
+    font-size: 15px;
+    color: #555;
+}
+
+.fl-table .edit:hover {
+    color: green;
+    cursor: pointer;
+}
+
+.fl-table .delete:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.deleteButton form button {
+    background-color: red;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.deleteButton form button:hover {
+    background-color: darkred;
+}
+
+/* Search Bar */
+.searchGoal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.searchGoal form {
+    display: flex; /* Change grid to flex */
+    width: 100%; /* Make the form take full width */
+}
+
+.searchTerm {
+    flex: 1; /* Allow the input to take available space */
+    border: 2px solid #28a745;
+    border-right: none;
+    height: 45px;
+    padding-left: 15px;
+    border-radius: 50px 0 0 50px;
+    outline: none;
+    color: #333;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.searchTerm:focus {
+    border-color: #218838;
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.5);
+}
+
+.searchButton {
+    width: 55px;
+    height: 45px;
+    background-color: #28a745;
+    border: 2px solid #28a745;
+    border-radius: 0 50px 50px 0;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    font-size: 18px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.searchButton:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.searchButton i {
+    vertical-align: middle;
+    font-size: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .searchGoal {
+        max-width: 90%;
+    }
+
+    .searchTerm {
+        font-size: 14px;
+    }
+
+    .searchButton {
+        font-size: 16px;
+        width: 50px;
+        height: 40px;
+    }
 }
 
 
+
+/* Responsive Table */
 @media (max-width: 767px) {
     .fl-table {
         display: block;
@@ -108,8 +212,8 @@ h1 {
         content: "Scroll horizontally >";
         display: block;
         text-align: right;
-        font-size: 11px;
-        color: white;
+        font-size: 12px;
+        color: #666;
         padding: 0 0 10px;
     }
 
@@ -119,105 +223,40 @@ h1 {
         display: block;
     }
 
-    .fl-table thead th:last-child {
-        border-bottom: none;
-    }
-
-    .fl-table thead {
-        float: left;
-    }
-
     .fl-table tbody {
         width: auto;
         position: relative;
         overflow-x: auto;
-    }
-
-    .fl-table td,
-    .fl-table th {
-        padding: 20px .625em .625em .625em;
-        height: 60px;
-        vertical-align: middle;
-        box-sizing: border-box;
-        overflow-x: hidden;
-        overflow-y: auto;
-        width: 120px;
-        font-size: 13px;
-        text-overflow: ellipsis;
+        display: block;
     }
 
     .fl-table thead th {
         text-align: left;
-        border-bottom: 1px solid #f7f7f9;
+        border-bottom: 1px solid #e2e2e2;
     }
 
     .fl-table tbody tr {
-        display: table-cell;
-    }
-
-    .fl-table tbody tr:nth-child(odd) {
-        background: none;
-    }
-
-    .fl-table tr:nth-child(even) {
-        background: transparent;
-    }
-
-    .fl-table tr td:nth-child(odd) {
-        background: #F8F8F8;
-        border-right: 1px solid #E6E4E4;
-    }
-
-    .fl-table tr td:nth-child(even) {
-        border-right: 1px solid #E6E4E4;
-    }
-
-    .fl-table tbody td {
         display: block;
-        text-align: center;
+        border-bottom: 1px solid #e2e2e2;
+        padding-bottom: 10px;
+    }
+
+    .fl-table td {
+        display: block;
+        text-align: right;
+        font-size: 14px;
+        padding: 10px;
+        border-bottom: 1px solid #e2e2e2;
+    }
+
+    .fl-table td:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .fl-table td:last-child {
+        border-bottom: 0;
     }
 }
-
-.deleteButton form button {
-    background-color: red;
-    border: none;
-    color: white;
-    border-radius: 5px;
-    padding: 3px 8px;
-    cursor: pointer;
-}
-
-/* Search */
-.searchGoal {
-    max-width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.searchButton {
-    margin-left: -40px;
-    position: relative;
-    width: 40px;
-    height: 32px;
-    border: 1px solid #00B4CC;
-    background: #00B4CC;
-    text-align: center;
-    color: black;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-    font-size: 20px;
-  }
-
-  .searchTerm {
-    width: 480px;
-    border: 3px solid #00B4CC;
-    border-right: none;
-    height: 39px;
-    border-radius: 5px 0 0 5px;
-    outline: none;
-    color: #9DBFAF;
-  }
-  
-  .searchTerm:focus{
-    color: black;
-  }

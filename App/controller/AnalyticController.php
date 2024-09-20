@@ -7,6 +7,7 @@ use App\model\Expenses;
 use App\model\Goals;
 use App\model\Incomes;
 use App\utils\Apriori;
+use App\utils\MonteCarlo;
 
 class AnalyticController
 {
@@ -158,5 +159,27 @@ class AnalyticController
         rewind($output);
         return stream_get_contents($output);
     }
+
+    // Custom function to render the simulation results in a view
+    public function MonteCarlo() {
+        // Initialize Monte Carlo object
+        $monteCarlo = new MonteCarlo();
+
+        // Run the simulation to get the results
+        $simulationResults = $monteCarlo->run();
+
+        // Pass the results to the custom view function (view method)
+        return view('/Analytic/monteCarlo', [
+            'results' => $simulationResults,  // Pass simulation data
+            'averageSavings' => $this->calculateAverage($simulationResults),  // Example of adding additional analysis
+        ]);
+    }
+
+    // A helper function to calculate the average of the simulation results (optional)
+    private function calculateAverage($simulationResults) {
+        if (count($simulationResults) === 0) return 0;
+        return array_sum($simulationResults) / count($simulationResults);
+    }
+
     
 }
