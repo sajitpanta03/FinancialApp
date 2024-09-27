@@ -39,6 +39,7 @@
                     <option value="bonus">Bonous</option>
                     <option value="salary">Salary</option>
                     <option value="interest">Interest</option>
+                    <option value="others">Others</option>
                 </select>
             </div>
         </fieldset>

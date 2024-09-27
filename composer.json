@@ -2,7 +2,8 @@
     "name": "sajitpanta/financial-app",
     "autoload": {
         "psr-4": {
-                "config\\": "config"
+                "config\\": "config",
+                 "App\\": "src/"
         }
     },
     "authors": [
@@ -14,5 +15,8 @@
     "require": {
         "vlucas/phpdotenv": "^5.6",
         "tecnickcom/tcpdf": "^6.7"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11"
     }
 }

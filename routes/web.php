@@ -73,7 +73,7 @@ $router->post('/amortizationResult', "App\\controller\\AmortizationSchedule@amor
 
 
 // Admin dashboard
-// $router->get('/admin', "App\\controller\\AdminController@index", [AdminMiddleware::class]);
 $router->get('/adminDashboard', "App\\controller\\AdminController@adminDashboard", [AdminMiddleware::class]);
 $router->get('/adminUser', "App\\controller\\AdminController@adminUser", [AdminMiddleware::class]);
 $router->post('/searchUsers', "App\\controller\\AdminController@searchUsers", [AdminMiddleware::class]);
+$router->post('/deleteUser', "App\\controller\\AdminController@deleteUser", [AdminMiddleware::class]);

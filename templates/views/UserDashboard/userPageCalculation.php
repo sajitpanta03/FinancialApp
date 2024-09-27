@@ -53,11 +53,11 @@
         Amortization Schedule
         </button>
     </div>
-    <div class="button2">
+    <!-- <div class="button2">
         <button onclick="location.href='amortizationSchedule'" type="button">
             Apriori Algorithm    
         </button>
-    </div>
+    </div> -->
 </div>
 
 

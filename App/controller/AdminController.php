@@ -51,4 +51,25 @@ class AdminController
         }
     }
 
+    public function deleteUser()
+    {
+        if (!isset($_POST['id']) || empty($_POST['id'])) {
+            return view('Admin/adminUser', null, "Invalid request.");
+        }
+
+        $id = $_POST['id'];
+
+        try {
+            $result = $this->admin->deleteUser($id);
+
+            if ($result) {
+                return view('/adminDashboard/adminUser', null, "User deleted successfully!");
+            } else {
+                return view('/adminDashboard/adminUser', null, "User deletion unsuccessful!");
+            }
+        } catch (Exception $error) {
+            return view('/UserDashboard/userPageGoal', null, "Sorry, error when deleting the goal: " . $error->getMessage());
+        }
+    }
+
 }

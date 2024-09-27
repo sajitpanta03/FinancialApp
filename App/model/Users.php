@@ -78,7 +78,7 @@ class Users
                     $_SESSION['user_email'] = $user['email'];
                     $_SESSION['logged_in'] = true;
     
-                    header("Location: /FinancialApp/admin");
+                    header("Location: /FinancialApp/adminDashboard");
                     exit;
                 }
             }

@@ -47,6 +47,7 @@
                     <th>Email</th>
                     <th>Register date</th>
                     <th>Type</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="goalsList">
@@ -58,15 +59,15 @@
                             <td><?php echo  htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8'); ?></td>
                             <td><?php echo htmlspecialchars($user['created_at'], ENT_QUOTES, 'UTF-8'); ?></td>
                             <td><?php echo htmlspecialchars($user['type'], ENT_QUOTES, 'UTF-8'); ?></td>
-                            <!-- <td>
-                                <a href="Edituser/<?php echo $user['id']; ?>" class="edit">Edit</a>&nbsp;&nbsp;
+                            <td>
+                                <!-- <a href="Edituser/<?php echo $user['id']; ?>" class="edit">Edit</a>&nbsp;&nbsp; -->
                                 <div class="deleteButton">
-                                    <form action="deleteuser" method="POST">
+                                    <form action="/FinancialApp/deleteUser" method="POST">
                                         <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
                                         <button type="submit" onclick="return confirm('Are you sure you want to delete this goal?')">Delete</button>
                                     </form>
                                 </div>
-                            </td> -->
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else : ?>
