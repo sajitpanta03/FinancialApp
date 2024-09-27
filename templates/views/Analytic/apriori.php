@@ -109,6 +109,7 @@
         </thead>
         <tbody>
             <?php if (is_array($frequentItemsets)): ?>
+
                 <?php foreach ($frequentItemsets as $itemsetData): ?>
                     <tr>
                         <td><?php echo is_array($itemsetData['itemset']) ? implode(', ', $itemsetData['itemset']) : $itemsetData['itemset']; ?></td>

@@ -28,11 +28,11 @@ if (isset($_SESSION['message'])) {
         <label>Enter your password</label>
       </div>
       <div class="forget">
-        <label for="remember">
+        <!-- <label for="remember">
           <input type="checkbox" id="remember">
           <p>Remember me</p>
-        </label>
-        <a href="#">Forgot password?</a>
+        </label> -->
+        <!-- <a href="#">Forgot password?</a> -->
       </div>
       <button type="submit">Submit</button>
       <div class="register">

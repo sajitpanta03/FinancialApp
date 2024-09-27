@@ -94,9 +94,9 @@
                     <?php echo $goalTotal; ?>
                 ],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',  
+                    'rgb(60, 60, 60, 60)',  
                     'rgba(54, 162, 235, 0.2)', 
-                    'rgba(75, 192, 192, 0.2)' 
+                    'rgb(106, 90, 205, 0.2)'
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',

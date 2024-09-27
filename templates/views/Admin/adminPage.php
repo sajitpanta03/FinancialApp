@@ -25,7 +25,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="adminUser">
                     <i class='bx bx-cog'></i>
                     <span class="links_name">User</span>
                 </a>

@@ -10,7 +10,7 @@
     <?php include 'header.php'; ?>
     <div class="homeContainer">
 	<h1 style="color: black;">Financial Management is <span></span></h1>
-        <button>Let's Start</button>
+        <button><a style="color: white; text-decoration: none;" href="/FinancialApp/login">Let's Start</a></button>
     </div>
 	
 	<!-- card table -->

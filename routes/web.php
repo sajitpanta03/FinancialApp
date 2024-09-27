@@ -1,5 +1,6 @@
 <?php
 
+use App\controller\AdminController;
 use App\middleware\AdminMiddleware;
 use App\middleware\AuthMiddleware;
 
@@ -63,6 +64,7 @@ $router->get('/analytic', "App\\controller\\AnalyticController@showAnalytic", [A
 $router->get('/apriori', "App\\controller\\AnalyticController@apriori", [AuthMiddleware::class]);
 $router->get('/aprioriReport', 'App\\controller\\AnalyticController@apioriReport', [AuthMiddleware::class]);
 $router->get('/aprioriPDF', 'App\\controller\\AnalyticController@generatePdfReport', [AuthMiddleware::class]);
+$router->get('/monteCarlo', 'App\\controller\\AnalyticController@MonteCarlo', [AuthMiddleware::class]);
 
 // Calculation dashboard
 $router->get('/calculation', "App\\controller\\CalculationController@showCalculation", [AuthMiddleware::class]);
@@ -71,5 +73,7 @@ $router->post('/amortizationResult', "App\\controller\\AmortizationSchedule@amor
 
 
 // Admin dashboard
-$router->get('/admin', "App\\controller\\AdminController@index", [AdminMiddleware::class]);
 $router->get('/adminDashboard', "App\\controller\\AdminController@adminDashboard", [AdminMiddleware::class]);
+$router->get('/adminUser', "App\\controller\\AdminController@adminUser", [AdminMiddleware::class]);
+$router->post('/searchUsers', "App\\controller\\AdminController@searchUsers", [AdminMiddleware::class]);
+$router->post('/deleteUser', "App\\controller\\AdminController@deleteUser", [AdminMiddleware::class]);
