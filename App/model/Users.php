@@ -1,8 +1,16 @@
 <?php
 
 namespace App\model;
+use Exception;
 
-class Users
+abstract class UserModel 
+{
+    abstract public function getUser($id);
+    abstract public function register($name, $email, $password, $type);
+    abstract public function login($email, $password);
+}
+
+class Users extends UserModel
 {
     public $conn;
     private $table_name = "users";
@@ -16,14 +24,13 @@ class Users
 
     public function getUser($id)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM  $table_name WHERE id = :id");
+        $stmt = $this->conn->prepare("SELECT * FROM $this->table_name WHERE id = :id");
         $stmt->execute(['id', $id]);
         return $stmt->fetch();
     }
 
     public function register($name, $email, $password, $type)
     {
-
         try {
             $sql = "INSERT INTO $this->table_name (name, email, password, type) VALUES (?, ?, ?, ?)";
 
@@ -99,5 +106,4 @@ class Users
             exit;
         }
     }
-    
 }

@@ -3,6 +3,7 @@
 namespace App\controller;
 
 use App\model\Admin;
+use Exception;
 
 class AdminController
 {
